@@ -5,13 +5,14 @@ import os
 
 
 class dots_and_boxes_game():
-    def __init__(self, grid_range, player1, player2):
+    def __init__(self, grid_range, player1="A", player2="B"):
         self.grid_range = grid_range
         self.total_num_segments = len(self.grid_range)*(len(self.grid_range)-1)*2
         list_of_players = [player1, player2]
         self.score = {p:0 for p in list_of_players}
         self.player_iter = itertools.cycle(list_of_players)
         self.player = next(self.player_iter)
+        print (list_of_players)
         self.list_of_lines = []
         self.mark_square = []
         self.square_player = ""

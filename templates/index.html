@@ -31,19 +31,19 @@
             </div>
             <div class="col-12 col-md-4 text-center">
                 <div class=" shadow p-3 mb-5 bg-white rounded text-primary">
-                <form method="POST" action="/send" role="form", name="petform">
+                <form method="POST" action="/players" role="form", name="playerform">
                     <div class="form-group">
-                        <label for="player1">Player A</label>
+                        <label for="playerA">Player A</label>
                         <input type="text" class="form-control" id="playerA" name="playerA" placeholder="Player A">
                     </div>
                     <div class="form-group">
-                        <label for="player2">Player B</label>
+                        <label for="playerB">Player B</label>
                         <input type="text" class="form-control" id="playerB" name="playerB" placeholder="Player B">
                     </div>
-                    <input type="submit" value="Start Game" class="btn btn-primary btn-lg">
+                    <input type="submit" name="playerform" value="Start Game" class="btn btn-primary btn-lg">
                 </form>
                 </div>
-                <div id = "player-text" class=" shadow p-3 mb-5 bg-white rounded text-primary">
+                <div id = "player-text"   class=" shadow p-3 mb-5 bg-white rounded text-primary">
                 </div>
                 <div class=" shadow p-3 mb-5 bg-white rounded text-primary">
                     <h1 class="display-4"><div id="winner"></div></h1>

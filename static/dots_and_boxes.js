@@ -120,4 +120,15 @@ function play($svg_area) {
 } // end play
 
 $svg_area = init();
+d3.select("#playerform")
+    .on("click", function(){
+        console.log("Clikecd on player form")
+        d3.json("/show",($dict)=> {
+            let $scores = $dict["scores"]
+            let $player = $dict["player"]
+            d3.select("#player-text").append("div").attr("id","player_score")
+            .append("p").attr("align","center").html($player)
+            .append("p").attr("align","center").html($scores);
+        });
+    });
 play($svg_area);

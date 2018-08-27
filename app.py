@@ -19,22 +19,28 @@ def html_scores():
 def html_player():
     return "<h3>Player : " + ds_game.get_current_player() + "</h3><hr>"
     
-
-# create route that renders index.html template
-@app.route("/", methods=["GET", "POST"])
+@app.route("/")
 def index():
     global ds_game 
-    if request.method == "POST":
-        player1 = request.form["player1"]
-        player2 = request.form["player2"]
-        ds_game = dots_and_boxes_game(grid_range, player1, player2)
-        return redirect("/", code=302)
+    ds_game = dots_and_boxes_game(grid_range)
     return render_template("index.html")
+
+# create route that renders index.html template
+@app.route("/players", methods=["GET", "POST"])
+def send():
+    global ds_game
+    if request.method == "POST":
+        playerA = request.form["playerA"]
+        playerB = request.form["playerB"]
+        ds_game = dots_and_boxes_game(grid_range, playerA, playerB)
+        #return jsonify({"player":html_player(), "scores" : html_scores()})
+        return redirect("/game", code=302)
+    else:
+        return render_template("index.html")
 
 @app.route("/game")
 def game():
-    return "Great Game"
-    # return render_template("index.html", mars=mars_info[0])
+    return render_template("game.html")
 
 @app.route("/play/<position>")
 def play(position):
