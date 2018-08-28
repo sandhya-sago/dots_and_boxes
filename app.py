@@ -1,11 +1,12 @@
 import sys
 import os
 sys.path.append( os.path.abspath(os.path.join(os.path.dirname(__file__), 'dots_and_boxes')))
-from flask import (Flask, render_template, jsonify, request, redirect)
+from flask import (Flask, render_template, jsonify, request, redirect, session)
 from dots_and_boxes_game import dots_and_boxes_game
 
 # create instance of Flask app
 app = Flask(__name__)
+app.config['SECRET_KEY'] = os.urandom(24).hex()
 
 num_dots = 5
 grid_range = range(50,50*num_dots+1,50)
@@ -23,24 +24,28 @@ def html_player():
 def index():
     global ds_game 
     ds_game = dots_and_boxes_game(grid_range)
-    return render_template("index.html")
+    return render_template("index.html", player_text={})
 
 # create route that renders index.html template
 @app.route("/players", methods=["GET", "POST"])
 def send():
     global ds_game
     if request.method == "POST":
-        playerA = request.form["playerA"]
-        playerB = request.form["playerB"]
+        playerA = request.form["playerA"].strip()
+        playerB = request.form["playerB"].strip()
+        if not playerA:
+            playerA = "A"
+        if not playerB:
+            playerB = "B" 
         ds_game = dots_and_boxes_game(grid_range, playerA, playerB)
         #return jsonify({"player":html_player(), "scores" : html_scores()})
-        return redirect("/game", code=302)
+        return render_template("index.html", player_text={"player":html_player(), "scores" : html_scores()})
     else:
-        return render_template("index.html")
+        return render_template("index.html", player_text={})
 
 @app.route("/game")
 def game():
-    return render_template("game.html")
+    return render_template("index.html")
 
 @app.route("/play/<position>")
 def play(position):
@@ -62,10 +67,10 @@ def show(position):
     # print("Play at posi
     # tion : ", position)
     list_position = [float(p) for p in position.split(",")]
-    print("Hover at : ", list_position)
+    #print("Hover at : ", list_position)
     line = ds_game.get_end_points(list_position)
     return_dict = {"line":line}
-    print("Got back for hover :", return_dict)
+    #print("Got back for hover :", return_dict)
     return jsonify(return_dict)
 
 if __name__ == "__main__":

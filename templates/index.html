@@ -28,6 +28,7 @@
         <div class="row justify-content-md-center">
             <div class="col-12 col-md-4" ><!--align="center"-->
                 <div id ="svg-area"></div>
+                <div id="winner"></div>
             </div>
             <div class="col-12 col-md-4 text-center">
                 <div class=" shadow p-3 mb-5 bg-white rounded text-primary">
@@ -40,15 +41,21 @@
                         <label for="playerB">Player B</label>
                         <input type="text" class="form-control" id="playerB" name="playerB" placeholder="Player B">
                     </div>
-                    <input type="submit" name="playerform" value="Start Game" class="btn btn-primary btn-lg">
+                    <input type="submit" id="playerform" name="playerform" value="Start Game" class="btn btn-primary btn-lg">
                 </form>
                 </div>
-                <div id = "player-text"   class=" shadow p-3 mb-5 bg-white rounded text-primary">
+                <div id = "player-text"   class="shadow p-3 mb-5 bg-white rounded text-primary">
+                    {% if player_text["player"] %}
+                    <p align="center">{{player_text["player"]|safe}}</p>
+                    {%endif%}
+                    {%if player_text["scores"] %}
+                    <p align="center">{{ player_text["scores"]|safe }}</p>
+                    {% endif %}
                 </div>
-                <div class=" shadow p-3 mb-5 bg-white rounded text-primary">
+                
+                <!--div class=" shadow p-3 mb-5 bg-white rounded text-primary">
                     <h1 class="display-4"><div id="winner"></div></h1>
-                    <a class="btn btn-primary btn-lg " href="/" role="button">Start a new game</a>
-                </div>
+                </div-->
             </div>
         </div>
     </div>

@@ -52,7 +52,7 @@ class dots_and_boxes_game():
         self.mark_square = []
         self.square_player = ''
         pointlist = self.get_end_points(pos)
-        print("Got the points as :", pointlist)
+        #print("Got the points as :", pointlist)
         if pointlist:
             self.check_square(pointlist)
             self.list_of_lines.append(pointlist)
@@ -79,7 +79,7 @@ class dots_and_boxes_game():
             (snap_x+size, snap_y), (snap_x+size, snap_y+size)]
         for pair in [(points[0],points[1]), (points[0], points[2]), \
             (points[1],points[3]),(points[2], points[3])]:
-            print ("checking if ", pos , " is in ", pair)
+            #print ("checking if ", pos , " is in ", pair)
             if self.locate(pos, pair,self.grid_range):
                 # Figured which pair of points make the line
                 if pair in self.list_of_lines:
