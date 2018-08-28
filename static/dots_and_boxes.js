@@ -73,8 +73,9 @@ function playfunction($svg_area, $dict){
     }
     // If the game has ended, declare winner
     if ($winner){
-        d3.select("#winner").append("div").classed("shadow p-3 mb-5 bg-white rounded text-primary", true)
-        .append("p").attr("align","center").append("h1").classed("display-4")
+        d3.select("#winner")
+        .append("div").classed("shadow p-3 mb-5 bg-white rounded text-primary", true)
+        .append("p").attr("align","center").append("h1").classed("display-4",true)
         .html("Winner is : "+ $winner);
     }
 } // end playfunction

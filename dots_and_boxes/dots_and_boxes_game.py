@@ -3,7 +3,6 @@ import time
 import itertools
 import os
 
-
 class dots_and_boxes_game():
     def __init__(self, grid_range, player1="A", player2="B"):
         self.grid_range = grid_range
@@ -16,7 +15,7 @@ class dots_and_boxes_game():
         self.list_of_lines = []
         self.mark_square = []
         self.square_player = ""
-
+    
     def get_scores(self):
         return self.score
 
