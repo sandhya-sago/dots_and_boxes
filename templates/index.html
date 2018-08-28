@@ -31,6 +31,14 @@
                 <div id="winner"></div>
             </div>
             <div class="col-12 col-md-4 text-center">
+                <div id = "player-text"   class="shadow p-3 mb-5 bg-white rounded text-primary">
+                    {% if player_text["player"] %}
+                    <p align="center">{{player_text["player"]|safe}}</p>
+                    {%endif%}
+                    {%if player_text["scores"] %}
+                    <p align="center">{{ player_text["scores"]|safe }}</p>
+                    {% endif %}
+                </div>
                 <div class=" shadow p-3 mb-5 bg-white rounded text-primary">
                 <form method="POST" action="/players" role="form", name="playerform">
                     <div class="form-group">
@@ -44,14 +52,7 @@
                     <input type="submit" id="playerform" name="playerform" value="Start Game" class="btn btn-primary btn-lg">
                 </form>
                 </div>
-                <div id = "player-text"   class="shadow p-3 mb-5 bg-white rounded text-primary">
-                    {% if player_text["player"] %}
-                    <p align="center">{{player_text["player"]|safe}}</p>
-                    {%endif%}
-                    {%if player_text["scores"] %}
-                    <p align="center">{{ player_text["scores"]|safe }}</p>
-                    {% endif %}
-                </div>
+                
                 
                 <!--div class=" shadow p-3 mb-5 bg-white rounded text-primary">
                     <h1 class="display-4"><div id="winner"></div></h1>

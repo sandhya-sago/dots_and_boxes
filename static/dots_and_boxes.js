@@ -75,7 +75,7 @@ function playfunction($svg_area, $dict){
     if ($winner){
         d3.select("#winner").append("div").classed("shadow p-3 mb-5 bg-white rounded text-primary", true)
         .append("p").attr("align","center").append("h1").classed("display-4")
-        .html("<h2>Winner is : "+ $winner + "</h2>");
+        .html("Winner is : "+ $winner);
     }
 } // end playfunction
 
