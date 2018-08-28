@@ -56,7 +56,8 @@ function playfunction($svg_area, $dict){
     // Update player turn and score card
     //d3.select("#player_score").remove();
     d3.select("#player-text").selectAll("*").remove();
-    d3.select("#player-text").append("div").attr("id","player_score")
+    d3.select("#player-text").append("div").classed("shadow p-3 mb-5 bg-white rounded text-primary", true)
+    .append("div").attr("id","player_score")
     .append("p").attr("align","center").html($player)
     .append("p").attr("align","center").html($scores);
     // if there are any squares, mark them
