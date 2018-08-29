@@ -80,18 +80,21 @@ function playfunction($svg_area, $dict){
 function showfunction($svg_area, $dict){
     let $pair = $dict["line"]
     //console.log("Trying to flash line : ", $pair)
-    $svg_area
+    var myline = $svg_area
     .append("line")
     .attr("x1",$pair[0][0])
     .attr("y1",$pair[0][1])
     .attr("x2",$pair[1][0])
     .attr("y2", $pair[1][1])
     .attr("style","stroke:rgb(255,192,203);stroke-width:1")
-    .transition()
+    /*.transition()
     .duration(2000)
     .attr("style","stroke:rgb(255,255,255)");
     make_dot($svg_area, $pair[0][0], $pair[0][1]);
-    make_dot($svg_area, $pair[1][0], $pair[1][1]);
+    make_dot($svg_area, $pair[1][0], $pair[1][1]);*/
+    window.setTimeout(function() {
+        myline.remove()
+    }, 2000);
 } // end showfunction
 
 function play($svg_area) {
