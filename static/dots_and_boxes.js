@@ -27,9 +27,6 @@ function init(){
             make_dot($svg_area, $i*50+50, $j*50+50);
         }
     }
-    /*d3.select("#player-text").append("div").attr("id","player_score")
-    .append("p").attr("align","center").html("<h3>Player : A</h3><hr>")
-    .append("p").attr("align","center").html("Scores<br>A : 0<br>B : 0");*/
 
     return $svg_area;
 } // end init
@@ -54,7 +51,6 @@ function playfunction($svg_area, $dict){
     .attr("y2", $pair[1][1])
     .attr("style","stroke:rgb(255,0,0);stroke-width:2");
     // Update player turn and score card
-    //d3.select("#player_score").remove();
     d3.select("#player-text").selectAll("*").remove();
     d3.select("#player-text").append("div").classed("shadow p-3 mb-5 bg-white rounded text-primary", true)
     .append("div").attr("id","player_score")
@@ -106,7 +102,7 @@ function play($svg_area) {
         console.log("Click at ",$loc);
         d3.json("/play/"+$loc, ($dict)=>{
             console.log("I got", $dict);
-            if ($dict["line"]) {
+            if ($dict) {
                 playfunction($svg_area, $dict);
             }
         }); 
@@ -115,7 +111,7 @@ function play($svg_area) {
         $loc = d3.mouse(this).toString();
         console.log("Hover at : ", $loc)
         d3.json("/show/"+$loc, ($dict)=>{
-            if($dict["line"]){
+            if($dict){
                 console.log("Calling showfunction with ", $dict)
                 showfunction($svg_area,$dict)
             }
@@ -124,16 +120,4 @@ function play($svg_area) {
 } // end play
 
 $svg_area = init();
-/*d3.select("#playerform")
-    .on("click", function(){
-        console.log("Clikecd on player form")
-        d3.json("/show",($dict)=> {
-            let $scores = $dict["scores"]
-            let $player = $dict["player"]
-            d3.select("#player_score").remove();
-            d3.select("#player-text").append("div").attr("id","player_score")
-            .append("p").attr("align","center").html($player)
-            .append("p").attr("align","center").html($scores);
-        });
-    });*/
 play($svg_area);
