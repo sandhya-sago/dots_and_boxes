@@ -1,5 +1,6 @@
 import sys
 import os
+import pickle
 sys.path.append( os.path.abspath(os.path.join(os.path.dirname(__file__), 'dots_and_boxes')))
 from flask import (Flask, render_template, jsonify, request, redirect, session)
 from dots_and_boxes_game import dots_and_boxes_game

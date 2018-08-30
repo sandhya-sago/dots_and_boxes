@@ -80,18 +80,17 @@ function playfunction($svg_area, $dict){
 function showfunction($svg_area, $dict){
     let $pair = $dict["line"]
     //console.log("Trying to flash line : ", $pair)
-    var myline = $svg_area
+    // remove all the previous flashing lines in the group
+    //thankfully, only this is a group
+    d3.selectAll("g > *").remove();
+    var myline = $svg_area.append("g")
     .append("line")
     .attr("x1",$pair[0][0])
     .attr("y1",$pair[0][1])
     .attr("x2",$pair[1][0])
     .attr("y2", $pair[1][1])
     .attr("style","stroke:rgb(255,192,203);stroke-width:1")
-    /*.transition()
-    .duration(2000)
-    .attr("style","stroke:rgb(255,255,255)");
-    make_dot($svg_area, $pair[0][0], $pair[0][1]);
-    make_dot($svg_area, $pair[1][0], $pair[1][1]);*/
+
     window.setTimeout(function() {
         myline.remove()
     }, 2000);
@@ -105,8 +104,12 @@ function play($svg_area) {
         console.log("Click at ",$loc);
         d3.json("/play/"+$loc, ($dict)=>{
             console.log("I got", $dict);
-            if ($dict) {
-                playfunction($svg_area, $dict);
+            try{
+                if ($dict["line"]) {
+                    playfunction($svg_area, $dict);
+                }
+            } catch(err) {
+                // ignore
             }
         }); 
     })
@@ -114,9 +117,13 @@ function play($svg_area) {
         $loc = d3.mouse(this).toString();
         console.log("Hover at : ", $loc)
         d3.json("/show/"+$loc, ($dict)=>{
-            if($dict){
-                console.log("Calling showfunction with ", $dict)
-                showfunction($svg_area,$dict)
+            try{
+                if($dict["line"]){
+                    console.log("Calling showfunction with ", $dict)
+                    showfunction($svg_area,$dict)
+                }
+            } catch(err){
+                // do nothing;
             }
         });
     });
