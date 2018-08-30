@@ -36,6 +36,8 @@ function errorfunction(error){
 } // end errorfunction
 
 function playfunction($svg_area, $dict){
+    /*A play has been made : draw line, update the player name
+    and scores, if any*/
     let $pair = $dict["line"]
     let $scores = $dict["scores"]
     let $player = $dict["player"]

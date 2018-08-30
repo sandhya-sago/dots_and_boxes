@@ -1,31 +1,51 @@
 import sys
 import time
-import itertools
+#import itertools
 import os
 
 class dots_and_boxes_game():
+    '''Class to define the state of the game. This class remembers the players,
+    the line segments, the scores. It also has to logic of the game to figure 
+    out which line the user is playing, determine if a box is completed, 
+    determine the scores, and whose turn it is.'''
+
     def __init__(self, grid_range, player1="A", player2="B"):
-        self.grid_range = grid_range
+        '''Initial state of the game'''
+        self.grid_range = list(grid_range)
         self.total_num_segments = len(self.grid_range)*(len(self.grid_range)-1)*2
-        list_of_players = [player1, player2]
-        self.score = {p:0 for p in list_of_players}
-        self.player_iter = itertools.cycle(list_of_players)
-        self.player = next(self.player_iter)
-        print (list_of_players)
+        self.list_of_players = [player1, player2]
+        self.score = {p:0 for p in self.list_of_players}
+        #self.player_iter = itertools.cycle(list_of_players)
+        self.player = self.list_of_players[0]
+        print (self.list_of_players)
         self.list_of_lines = []
         self.mark_square = []
         self.square_player = ""
+
+    def next_player (self):
+        '''Return the next player'''
+        # Cannot use itertools.cycle for getting next player
+        # cycle object is not JSON serializable which is 
+        # need to store flask session
+        if self.player is self.list_of_players[0]:
+            return self.list_of_players[1]
+        if self.player is self.list_of_players[1]:
+            return self.list_of_players[0]
     
     def get_scores(self):
         return self.score
 
     def get_current_player(self):
+        '''returns the player whose turn it is'''
         return self.player
     
     def get_mark_square(self):
+        '''Which squares are completed in this turn, if any'''
         return self.mark_square
     
     def get_square_player(self):
+        '''Return the player name to which the self.mark_square
+        belongs to'''
         return self.square_player
  
     def locate(self, pos, pair,ingrid = True):
@@ -48,6 +68,9 @@ class dots_and_boxes_game():
             return False
 
     def click(self, pos):
+        '''Do something with a click. If the click is where
+        a valid line can be placed, return the x,y coordinates
+        of both end points. Otherwise, return None'''
         self.mark_square = []
         self.square_player = ''
         pointlist = self.get_end_points(pos)
@@ -88,6 +111,8 @@ class dots_and_boxes_game():
 
 
     def check_square(self, line, clear=False):
+        '''Check if the new "line" completes a square, figure out what the squares 
+        are (max 2) and which player the squares belong to'''
         x1, y1, x2, y2 = line[0][0],line[0][1],line[1][0], line[1][1] 
         v = y1-y2
         h = x1-x2
@@ -127,6 +152,6 @@ class dots_and_boxes_game():
         if score:
             self.score[self.player] += score
         else:
-            self.player = next(self.player_iter)
+            self.player = self.next_player()
         return
 
